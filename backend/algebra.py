@@ -1,43 +1,32 @@
 import sympy as sp
+from typing import Optional
 
-def simplificar(expressao: str):
-    """
-    Simplifica expressoes algebricas usando SymPy.
-    Exemplo: '2x + 4x - 3' -> '6x - 3'
-    """
-    x = sp.symbols("x")
-    return sp.simplify(expressao)
+def simplificar(expr_str: str) -> str:
+    expr = sp.sympify(expr_str)
+    return str(sp.simplify(expr))
 
+def expandir(expr_str: str) -> str:
+    expr = sp.sympify(expr_str)
+    return str(sp.expand(expr))
 
-def derivar(expressao: str, variavel: str = 'x'):
-    """
-    Deriva uma expressao algebrica.
-    """
-    var = sp.symbols(variavel)
-    return sp.diff(expressao, var)
+def fatorar(expr_str: str) -> str:
+    expr = sp.sympify(expr_str)
+    return str(sp.factor(expr))
 
+def derivar(expr_str: str, var: Optional[str] = "x") -> str:
+    var_sym = sp.symbols(var)
+    expr = sp.sympify(expr_str)
+    return str(sp.diff(expr, var_sym))
 
-def integrar(expressao: str, variavel: str = 'x'):
-    """
-    Integra uma expressao algebrica.
-    """
-    var = sp.symbols(variavel)
-    return sp.integrate(expressao, var)
+def integrar(expr_str: str, var: Optional[str] = "x") -> str:
+    var_sym = sp.symbols(var)
+    expr = sp.sympify(expr_str)
+    return str(sp.integrate(expr, var_sym))
 
-
-def fatorar(expressao: str):
-    """
-    Fatora expressoes algebricas e polinomios.
-    """
-    x = sp.symbols("x")
-    return sp.factor(expressao)
-
-
-def resolver_equacao(expressao: str):
-    """
-    Resolve equacoes algebricas.
-    Exemplo: '2*x + 5 = 11'
-    """
-    x = sp.symbols("x")
-    eq = sp.Eq(eval(expressao.split('=')[0]), eval(expressao.split('=')[1]))
-    return sp.solve(eq, x)
+def resolver_equacao(eq_str: str, var: Optional[str] = "x"):
+    if "=" in eq_str:
+        lhs, rhs = eq_str.split("=", 1)
+        sol = sp.solve(sp.Eq(sp.sympify(lhs), sp.sympify(rhs)), sp.symbols(var))
+    else:
+        sol = sp.solve(sp.sympify(eq_str), sp.symbols(var))
+    return [str(s) for s in sol]

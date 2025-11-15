@@ -1,12 +1,8 @@
-from itertools import product
+from typing import List, Any
 
-def produto_cartesiano(A, B):
-    return list(product(A, B))
+def produto_cartesiano(A: List[Any], B: List[Any]):
+    return [(a, b) for a in A for b in B]
 
-def verificar_funcao(relacao):
-    """
-    Verifica se uma relacao e funcao.
-    Relacao = [(x, y), ...]
-    """
+def eh_funcao(relacao: List[tuple]) -> bool:
     dominio = [x for x, _ in relacao]
     return len(dominio) == len(set(dominio))

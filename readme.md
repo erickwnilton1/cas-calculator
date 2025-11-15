@@ -1,97 +1,153 @@
-## Cas-calculator
+# **CAS Calculator – API**
 
-Computador Algébrico
-
-A CAS Calculator é uma aplicação desenvolvida para demonstrar, de forma prática, os conceitos fundamentais da disciplina de Estruturas Matemáticas.
-O sistema reúne operações algébricas, vetoriais, matriciais e manipulação de relações matemáticas em um ambiente totalmente executado via terminal.
+A **CAS Calculator API** é uma aplicação desenvolvida para demonstrar, de forma prática, os conceitos fundamentais da disciplina de **Estruturas Matemáticas**. <br />
+A API implementa operações algébricas, vetoriais, matriciais e manipulação de relações matemáticas utilizando **Python**, **FastAPI**, **SymPy** e **NumPy**.
 
 ---
 
-### 🧠 Funcionalidades
-
-🔢 1. Álgebra Simbólica (SymPy)
-
-- [ ] Simplificação algébrica
-- [ ] Derivação
-- [ ] Integração
-- [ ] Fatoração
-- [ ] Resolução de equações
-
-🧭 2. Operações com Vetores (NumPy)
-
-- [ ] Soma de vetores
-- [ ] Produto escalar
-- [ ] Distância entre vetores
-
-🟦 3. Operações com Matrizes
-
-- [ ] Soma de matrizes (opcional expandir)
-- [ ] Multiplicação por escalar
-- [ ] Multiplicação matricial
-
-🔗 4. Relações e Produto Cartesiano
-
-- [ ] Representação de conjuntos
-- [ ] Geração do produto cartesiano
-- [ ] Manipulação básica de relações
-
-🛰️ 5. Interface Futurista no Terminal
-
-- [ ] Menu interativo
-- [ ] Organização clara das opções
-- [ ] Execução totalmente via terminal
-
----
-
-### Tecnologias utilizadas
+### 1. Stack Utilizada
 
 - [ ] Python 3.12
+- [ ] FastAPI
+- [ ] Uvicorn
 - [ ] SymPy
 - [ ] NumPy
-- [ ] Terminal (CLI)
 
 ---
 
-### Como executar:
+### 2. Estrutura do Projeto
 
-Clonar o repositório:
+```
+cas-calculator/
+│
+├── backend/
+│   ├── app.py             # Arquivo principal da API
+│   ├── algebra.py         # Operações algébricas (SymPy)
+│   ├── vetores.py         # Operações vetoriais (NumPy)
+│   ├── matrizes.py        # Operações com matrizes
+│   ├── relacoes.py        # Conjuntos e produto cartesiano
+│
+└── readme.md              # Documentação
+```
+
+---
+
+### 3. Instalação do Ambiente
+
+### 3.1. Clonar o repositório
 
 ```bash
 git clone https://github.com/erickwnilton1/cas-calculator
 cd cas-calculator
 ```
 
-(Projeto recomendado com ambiente virtual)
+### 3.2. Criar ambiente virtual
 
 ```bash
 python -m venv venv
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Linux/Mac
 ```
 
-Instalar dependências:
+Ativação:
+
+- Windows:
+
+  ```bash
+  venv\Scripts\activate
+  ```
+
+- Linux/Mac:
+
+  ```bash
+  source venv/bin/activate
+  ```
+
+### 3.3. Instalar dependências
 
 ```bash
-pip install numpy
-```
-
-Executar a aplicação:
-
-```bash
-python main.py
+pip install fastapi uvicorn sympy numpy
 ```
 
 ---
 
-### Estrutura do projeto
+### 4. Como executar:
+
+No diretório raiz do projeto:
+
+```bash
+python -m uvicorn backend.app:app --reload
+```
+
+A API estará disponível em:
 
 ```
-/cas-calculator
-|- Backend
-│── main.py          # menu principal
-│── algebra.py       # operações simbólicas
-│── vetores.py       # operações com vetores
-│── matrizes.py      # operações com matrizes
-│── relacoes.py      # conjunto e produto cartesiano
-│── readme.md        # documentação
+http://127.0.0.1:8000
 ```
+
+---
+
+### 5. Documentação automática (Swagger UI)
+
+Acesse:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+---
+
+### 6. Endpoints da API
+
+### 6.1 Álgebra Simbólica
+
+Arquivo: `algebra.py`
+
+| Método | Rota                 | Descrição               |
+| ------ | -------------------- | ----------------------- |
+| POST   | `/algebra/simplify`  | Simplificação algébrica |
+| POST   | `/algebra/diff`      | Derivação               |
+| POST   | `/algebra/integrate` | Integração              |
+| POST   | `/algebra/factor`    | Fatoração               |
+| POST   | `/algebra/solve`     | Resolver equações       |
+
+#### Exemplo:
+
+```json
+{
+  "expr": "2*x + 3*x"
+}
+```
+
+---
+
+### 6.2 Operações com Vetores
+
+Arquivo: `vetores.py`
+
+| Método | Rota           | Descrição                |
+| ------ | -------------- | ------------------------ |
+| POST   | `/vector/sum`  | Somar dois vetores       |
+| POST   | `/vector/dot`  | Calcular produto escalar |
+| POST   | `/vector/dist` | Distância entre vetores  |
+
+---
+
+### 6.3 Relações e Produto Cartesiano
+
+Arquivo: `relacoes.py`
+
+| Método | Rota                   | Descrição  |
+| ------ | ---------------------- | ---------- |
+| POST   | `/relations/cartesian` | Gera A × B |
+
+---
+
+### 7. Testes
+
+A API pode ser testada de três formas:
+
+1. **Swagger UI** (recomendado)
+   `http://127.0.0.1:8000/docs`
+
+2. **Thunder Client** (VS Code)
+
+3. **Postman**

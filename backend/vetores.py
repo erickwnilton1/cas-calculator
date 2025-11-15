@@ -1,13 +1,11 @@
 import numpy as np
+from typing import List
 
-def soma_vetores(v1, v2):
-    return np.add(v1, v2)
+def soma_vetores(v1: List[float], v2: List[float]) -> List[float]:
+    return (np.array(v1, dtype=float) + np.array(v2, dtype=float)).tolist()
 
-def produto_escalar(v1, v2):
-    return np.dot(v1, v2)
+def produto_escalar(v1: List[float], v2: List[float]) -> float:
+    return float(np.dot(np.array(v1, dtype=float), np.array(v2, dtype=float)))
 
-def norma(v):
-    return np.linalg.norm(v)
-
-def distancia(v1, v2):
-    return np.linalg.norm(np.array(v1) - np.array(v2))
+def distancia(v1: List[float], v2: List[float]) -> float:
+    return float(np.linalg.norm(np.array(v1, dtype=float) - np.array(v2, dtype=float)))
