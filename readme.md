@@ -1,7 +1,7 @@
-# **CAS Calculator – API**
+# **CAS Calculator**
 
-A **CAS Calculator API** é uma aplicação desenvolvida para demonstrar, de forma prática, os conceitos fundamentais da disciplina de **Estruturas Matemáticas**. <br />
-A API implementa operações algébricas, vetoriais, matriciais e manipulação de relações matemáticas utilizando **Python**, **FastAPI**, **SymPy** e **NumPy**.
+A **CAS Calculator** é uma aplicação desenvolvida para demonstrar, de forma prática, os conceitos fundamentais da disciplina de **Estruturas Matemáticas**. <br />
+A API implementa operações algébricas, vetoriais, matriciais e manipulação de relações matemáticas utilizando **Python**, **FastAPI**, **SymPy** e **NumPy**, **Html**, **Css**, **JavaScript**.
 
 ---
 
@@ -12,6 +12,9 @@ A API implementa operações algébricas, vetoriais, matriciais e manipulação 
 - [ ] Uvicorn
 - [ ] SymPy
 - [ ] NumPy
+- [ ] Html
+- [ ] Css
+- [ ] JavaScript
 
 ---
 
@@ -26,6 +29,10 @@ cas-calculator/
 │   ├── vetores.py         # Operações vetoriais (NumPy)
 │   ├── matrizes.py        # Operações com matrizes
 │   ├── relacoes.py        # Conjuntos e produto cartesiano
+|
+├── index.html
+├── style.css
+├── script.js
 │
 └── readme.md              # Documentação
 ```
@@ -82,6 +89,14 @@ A API estará disponível em:
 ```
 http://127.0.0.1:8000
 ```
+
+Executar Frontend:
+
+```
+index.html
+```
+
+em qualquer navegador.
 
 ---
 
