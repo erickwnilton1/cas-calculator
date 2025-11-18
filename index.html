@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>CAS Calculator — Calculadora</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <div class="card large" role="application" aria-labelledby="appTitle">
+      <header class="header">
+        <h1 id="appTitle" class="title">CAS Calculator</h1>
+
+        <div class="tabs" role="tablist" aria-label="Seções">
+          <button
+            class="tab active"
+            data-tab="algebra"
+            role="tab"
+            aria-selected="true"
+          >
+            Álgebra
+          </button>
+          <button class="tab" data-tab="vetores" role="tab">Vetores</button>
+          <button class="tab" data-tab="matrizes" role="tab">Matrizes</button>
+          <button class="tab" data-tab="relacoes" role="tab">Relações</button>
+        </div>
+      </header>
+
+      <main>
+        <div class="display" aria-live="polite">
+          <div id="expr" class="expr" contenteditable="false">0</div>
+          <div id="modeLabel" class="small">Modo: Álgebra — Simplificar</div>
+        </div>
+
+        <!-- ÁLGEBRA -->
+        <section id="panel-algebra" class="panel">
+          <div class="grid calculator-grid" aria-hidden="false">
+            <button class="btn" onclick="press('7')">7</button>
+            <button class="btn" onclick="press('8')">8</button>
+            <button class="btn" onclick="press('9')">9</button>
+            <button class="btn op" onclick="press('/')">÷</button>
+
+            <button class="btn" onclick="press('4')">4</button>
+            <button class="btn" onclick="press('5')">5</button>
+            <button class="btn" onclick="press('6')">6</button>
+            <button class="btn op" onclick="press('*')">×</button>
+
+            <button class="btn" onclick="press('1')">1</button>
+            <button class="btn" onclick="press('2')">2</button>
+            <button class="btn" onclick="press('3')">3</button>
+            <button class="btn op" onclick="press('-')">−</button>
+
+            <button class="btn" onclick="press('0')">0</button>
+            <button class="btn" onclick="press('.')">.</button>
+            <button class="btn" onclick="press('(')">(</button>
+            <button class="btn" onclick="press(')')">)</button>
+
+            <button class="btn" onclick="press('x')">x</button>
+            <button class="btn" onclick="press('y')">y</button>
+            <button class="btn" onclick="press('^')">^</button>
+            <button class="btn op" onclick="press('%')">%</button>
+
+            <button class="btn wide op2" onclick="press('+')">+</button>
+          </div>
+
+          <div class="row spaced">
+            <select id="algebraOp" onchange="updateMode()" class="field">
+              <option value="simplify">Simplificar</option>
+              <option value="diff">Derivar</option>
+              <option value="integrate">Integrar</option>
+              <option value="factor">Fatorar</option>
+              <option value="solve">Resolver Equação</option>
+            </select>
+
+            <button class="btn accent" onclick="sendAlgebra()">Calcular</button>
+          </div>
+
+          <div class="row spaced small-gap">
+            <button class="btn wide danger" onclick="allClear()">AC</button>
+            <button class="btn wide delete" onclick="backspace()">⌫</button>
+          </div>
+
+          <div class="resultBox" id="algebraResult" aria-live="polite">
+            Resultado aparecerá aqui
+          </div>
+        </section>
+
+        <!-- VETORES -->
+        <section id="panel-vetores" class="panel" style="display: none">
+          <div class="row spaced">
+            <input
+              id="vecA"
+              class="field"
+              placeholder="[1,2,3]"
+              aria-label="Vetor A"
+            />
+            <input
+              id="vecB"
+              class="field"
+              placeholder="[4,5,6]"
+              aria-label="Vetor B"
+            />
+          </div>
+
+          <div class="row spaced">
+            <select
+              id="vectorOp"
+              class="field"
+              aria-label="Operação de vetores"
+            >
+              <option value="sum">Somar</option>
+              <option value="dot">Produto Escalar</option>
+              <option value="dist">Distância</option>
+            </select>
+
+            <button class="btn accent" onclick="sendVectors()">Calcular</button>
+          </div>
+
+          <div class="resultBox" id="vectorResult" aria-live="polite">
+            Resultado aparecerá aqui
+          </div>
+        </section>
+
+        <!-- MATRIZES -->
+        <section id="panel-matrizes" class="panel" style="display: none">
+          <div class="column">
+            <label class="label">Matriz A</label>
+            <textarea
+              id="matA"
+              class="field textarea"
+              placeholder="Ex: [[1,2],[3,4]]"
+            ></textarea>
+
+            <label class="label" style="margin-top: 8px"
+              >Matriz B / vetor b</label
+            >
+            <textarea
+              id="matB"
+              class="field textarea"
+              placeholder="Ex: [[5,6],[7,8]] ou [1,2]"
+            ></textarea>
+          </div>
+
+          <div class="row spaced">
+            <select
+              id="matrixOp"
+              class="field"
+              aria-label="Operação de matrizes"
+            >
+              <option value="multiply">Multiplicar Matrizes</option>
+              <option value="det">Determinante</option>
+              <option value="solve">Resolver (A·x = b)</option>
+              <option value="eigen">Autovalores / Autovetores</option>
+            </select>
+
+            <button class="btn accent" onclick="sendMatrices()">
+              Executar
+            </button>
+          </div>
+
+          <div class="resultBox" id="matrixResult" aria-live="polite">
+            Resultado aparecerá aqui
+          </div>
+        </section>
+
+        <!-- RELAÇÕES -->
+        <section id="panel-relacoes" class="panel" style="display: none">
+          <div class="row spaced">
+            <input
+              id="setA"
+              class="field"
+              placeholder='["a","b"]'
+              aria-label="Conjunto A"
+            />
+            <input
+              id="setB"
+              class="field"
+              placeholder="[1,2]"
+              aria-label="Conjunto B"
+            />
+          </div>
+
+          <div class="row spaced">
+            <button class="btn accent" onclick="sendRelations()">Gerar</button>
+            <button class="btn" onclick="clearRelations()">Limpar</button>
+          </div>
+
+          <div class="resultBox" id="relationResult" aria-live="polite">
+            Resultado aparecerá aqui
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
